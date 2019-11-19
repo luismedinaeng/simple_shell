@@ -1,27 +1,67 @@
 #include <stdio.h>
-
+#include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h>
+#include <sys/wait.h>
 
 int main(void)
 {
 	ssize_t bytes_read;
 	size_t num_bytes;
-	int i;
-	char *string;
+	pid_t _pid;
+	char *str, *strcp, *token, *tokens, *p_sign = "$ ";
+	int status, exe, n = 0;
+	char *input[10];
 
-	printf("$ ");
 	num_bytes = 0;
-	string = NULL;
-	bytes_read = getline(&string, &num_bytes, stdin);
+	str = NULL;
+	token = NULL;
 
-	if (bytes_read == -1)
+	while (1)
 	{
-		puts("Error.");
-	}
-	else
-	{
-		for(i= 0; string[i] != '\0'; i++)
-			putchar(string[i]);
-	}
+		if (isatty(STDIN_FILENO))
+			write(STDOUT_FILENO, p_sign, sizeof(p_sign));
 
-	return 0;
+		bytes_read = getline(&str, &num_bytes, stdin);
+
+		if (bytes_read == EOF)
+		{
+			putchar('\n');
+			exit(0);
+		}
+		if (bytes_read == -1)
+		{
+			exit(-1);
+		}
+		else
+		{
+			/* strcp = str; */
+			/* token = strtok(strcp, " "); */
+			/* while((token != NULL && n > 0) || n == 0) */
+			/* { */
+			/* 	input[n] = token; */
+			/* 	n++; */
+			/* 	token =strtok(NULL, " "); */
+			/* } */
+
+			tokens = strdup(str);
+			token = strtok(tokens, " ");
+			while (token != NULL)
+			{
+				input[n++] = strdup(token);
+				token = strtok(NULL, " ");
+			}
+
+			exe = execve(input[0], input, NULL);
+			/* _pid = fork(); */
+
+			/* if (_pid == 0) */
+			/* { */
+			/* 	exe = execve(input[0], input, NULL); */
+			/* } */
+			/* else if (_pid > 0) */
+			/* 	wait(&status); */
+		}
+	}
 }
