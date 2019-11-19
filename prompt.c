@@ -1,10 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/wait.h>
-#include <signal.h>
+#include "holberton.h"
 
 void sighandler(int sig)
 {
@@ -19,6 +13,7 @@ int main(void)
 	char *str, *strcp, *token, *tokens, *p_sign = "$ ";
 	int status, exe, n = 0;
 	char *input[10] = {};
+	char **intro;
 
 	num_bytes = 0;
 	str = NULL;
@@ -43,33 +38,33 @@ int main(void)
 		}
 		else
 		{
-			tokens = strdup(str);
-			token = strtok(tokens, " \n");
-			n = 0;
-			while (token != NULL)
-			{
-				input[n] = token;
-				token = strtok(NULL, " \n");
-				n++;
-			}
-			input[n] = NULL;
-			/* execve (input[0], input, NULL); */
+			/* tokens = strdup(str); */
+			/* token = strtok(tokens, " \n"); */
+			/* n = 0; */
+			/* while (token != NULL) */
+			/* { */
+			/* 	input[n] = token; */
+			/* 	token = strtok(NULL, " \n"); */
+			/* 	n++; */
+			/* } */
+			/* input[n] = NULL; */
+			intro = str_process(str, bytes_read);
 
-			_pid = fork();
-			if (_pid == 0)
-			{
-				exe = execve(input[0], input, NULL);
-				if (exe == -1)
-				{
-					perror("Error");
-				}
-				if (bytes_read = EOF)
-					exit(0);
-			}
-			else if (_pid > 0)
-			{
-				wait(&status);
-			}
+			/* _pid = fork(); */
+			/* if (_pid == 0) */
+			/* { */
+			/* 	exe = execve(intro[0], intro, NULL); */
+			/* 	if (exe == -1) */
+			/* 	{ */
+			/* 		perror("Error"); */
+			/* 	} */
+			/* 	if (bytes_read = EOF) */
+			/* 		exit(0); */
+			/* } */
+			/* else if (_pid > 0) */
+			/* { */
+			/* 	wait(&status); */
+			/* } */
 
 		}
 	}

@@ -9,6 +9,6 @@
 #include <sys/wait.h>
 #include <signal.h>
 
-char **str_tok(char *command, ssize_t r_b);
+char **str_process(char *command, ssize_t r_b);
 
 #endif
