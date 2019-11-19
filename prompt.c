@@ -47,17 +47,24 @@ int main(void)
 				n++;
 			}
 			input[n] = NULL;
+			/* execve (input[0], input, NULL); */
 
-			execve (input[0], input, NULL);
+			_pid = fork();
+			if (_pid == 0)
+			{
+				exe = execve(input[0], input, NULL);
+				if (exe == -1)
+				{
+					perror("Error");
+				}
+				if (bytes_read = EOF)
+					exit(0);
+			}
+			else if (_pid > 0)
+			{
+				wait(&status);
+			}
 
-			/* _pid = fork(); */
-
-			/* if (_pid == 0) */
-			/* { */
-			/* 	exe = execve(input[0], input, NULL); */
-			/* } */
-			/* else if (_pid > 0) */
-			/* 	wait(&status); */
 		}
 	}
 }
