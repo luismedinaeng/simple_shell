@@ -4,6 +4,7 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
+char **_stru(char *stru);
 
 int main(void)
 {
@@ -12,7 +13,8 @@ int main(void)
 	pid_t _pid;
 	char *str, *strcp, *token, *tokens, *p_sign = "$ ";
 	int status, exe, n = 0;
-	char *input[10];
+	char *input[10] = {};
+	char **arg = NULL;
 
 	num_bytes = 0;
 	str = NULL;
@@ -21,10 +23,9 @@ int main(void)
 	while (1)
 	{
 		if (isatty(STDIN_FILENO))
-			write(STDOUT_FILENO, p_sign, sizeof(p_sign));
+			write(STDOUT_FILENO, p_sign, strlen(p_sign));
 
 		bytes_read = getline(&str, &num_bytes, stdin);
-
 		if (bytes_read == EOF)
 		{
 			putchar('\n');
@@ -36,24 +37,19 @@ int main(void)
 		}
 		else
 		{
-			/* strcp = str; */
-			/* token = strtok(strcp, " "); */
-			/* while((token != NULL && n > 0) || n == 0) */
-			/* { */
-			/* 	input[n] = token; */
-			/* 	n++; */
-			/* 	token =strtok(NULL, " "); */
-			/* } */
-
 			tokens = strdup(str);
-			token = strtok(tokens, " ");
+			token = strtok(tokens, " \n");
+			n = 0;
 			while (token != NULL)
 			{
-				input[n++] = strdup(token);
-				token = strtok(NULL, " ");
+				input[n] = token;
+				token = strtok(NULL, " \n");
+				n++;
 			}
+			input[n] = NULL;
 
-			exe = execve(input[0], input, NULL);
+			execve (input[0], input, NULL);
+
 			/* _pid = fork(); */
 
 			/* if (_pid == 0) */
@@ -65,3 +61,21 @@ int main(void)
 		}
 	}
 }
+
+/* char **_stru(char *stru) */
+/* { */
+/* 	char *intro[10] = {}; */
+/* 	char *tkn, *tkns; */
+/* 	int n = 0; */
+/* 	tkns = strdup(stru); */
+/* 	tkn = strtok(tkns, "\n "); */
+/* 	while (tkn != NULL) */
+/* 	{ */
+/* 		intro[n] = tkn; */
+/* 		tkn = strtok(NULL, "\n "); */
+/* 		n++; */
+/* 	} */
+/* 	intro[n] = NULL; */
+
+/* 	return(intro); */
+/* } */
