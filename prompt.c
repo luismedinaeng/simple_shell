@@ -4,7 +4,12 @@
 #include <unistd.h>
 #include <sys/types.h>
 #include <sys/wait.h>
-char **_stru(char *stru);
+#include <signal.h>
+
+void sighandler(int sig)
+{
+	write(STDOUT_FILENO, "\n$ ", 3);
+}
 
 int main(void)
 {
@@ -14,7 +19,6 @@ int main(void)
 	char *str, *strcp, *token, *tokens, *p_sign = "$ ";
 	int status, exe, n = 0;
 	char *input[10] = {};
-	char **arg = NULL;
 
 	num_bytes = 0;
 	str = NULL;
@@ -24,6 +28,8 @@ int main(void)
 	{
 		if (isatty(STDIN_FILENO))
 			write(STDOUT_FILENO, p_sign, strlen(p_sign));
+
+		signal(SIGINT, sighandler);
 
 		bytes_read = getline(&str, &num_bytes, stdin);
 		if (bytes_read == EOF)
@@ -68,21 +74,3 @@ int main(void)
 		}
 	}
 }
-
-/* char **_stru(char *stru) */
-/* { */
-/* 	char *intro[10] = {}; */
-/* 	char *tkn, *tkns; */
-/* 	int n = 0; */
-/* 	tkns = strdup(stru); */
-/* 	tkn = strtok(tkns, "\n "); */
-/* 	while (tkn != NULL) */
-/* 	{ */
-/* 		intro[n] = tkn; */
-/* 		tkn = strtok(NULL, "\n "); */
-/* 		n++; */
-/* 	} */
-/* 	intro[n] = NULL; */
-
-/* 	return(intro); */
-/* } */
