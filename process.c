@@ -28,13 +28,16 @@ char **str_process(char *command, ssize_t b_r)
 	}
 	input[n] = NULL;
 
+	if(strcmp(input[0], "exit") == 0)
+		exit(0);
+
 	_pid = fork();
 	if (_pid == 0)
 	{
 		exe = execve(input[0], input, NULL);
 		if (exe == -1)
 		{
-			perror("Error");
+			perror(input[0]);
 		}
 		if (b_r = EOF)
 			exit(0);
@@ -43,4 +46,5 @@ char **str_process(char *command, ssize_t b_r)
 	{
 		wait(&status);
 	}
+	return(input);
 }
