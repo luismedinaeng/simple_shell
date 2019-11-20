@@ -29,7 +29,8 @@ int main(void)
 		bytes_read = getline(&str, &num_bytes, stdin);
 		if (bytes_read == EOF)
 		{
-			putchar('\n');
+			if (isatty(STDIN_FILENO))
+				putchar('\n');
 			exit(0);
 		}
 		if (bytes_read == -1)
@@ -38,34 +39,7 @@ int main(void)
 		}
 		else
 		{
-			/* tokens = strdup(str); */
-			/* token = strtok(tokens, " \n"); */
-			/* n = 0; */
-			/* while (token != NULL) */
-			/* { */
-			/* 	input[n] = token; */
-			/* 	token = strtok(NULL, " \n"); */
-			/* 	n++; */
-			/* } */
-			/* input[n] = NULL; */
 			intro = str_process(str, bytes_read);
-
-			/* _pid = fork(); */
-			/* if (_pid == 0) */
-			/* { */
-			/* 	exe = execve(intro[0], intro, NULL); */
-			/* 	if (exe == -1) */
-			/* 	{ */
-			/* 		perror("Error"); */
-			/* 	} */
-			/* 	if (bytes_read = EOF) */
-			/* 		exit(0); */
-			/* } */
-			/* else if (_pid > 0) */
-			/* { */
-			/* 	wait(&status); */
-			/* } */
-
 		}
 	}
 }
