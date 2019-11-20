@@ -5,7 +5,7 @@ char **str_process(char *command, ssize_t b_r)
 	pid_t _pid;
 	char *tkn, *tkns;
 	char **input_bu;
-	int status, exe, n = 0;
+	int status, exe, n = 0, ex_it;
 	char **input = malloc(2 * sizeof(char*));
 	if (input == NULL)
 		return (NULL);
@@ -28,8 +28,9 @@ char **str_process(char *command, ssize_t b_r)
 	}
 	input[n] = NULL;
 
+	ex_it = _atoi(input[1]);
 	if(strcmp(input[0], "exit") == 0)
-		exit(0);
+		exit(ex_it);
 
 	_pid = fork();
 	if (_pid == 0)
