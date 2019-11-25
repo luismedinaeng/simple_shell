@@ -5,7 +5,7 @@ void sighandler(int sig)
 	write(STDOUT_FILENO, "\n$ ", 3);
 }
 
-int main(void)
+int main(int argc, char *argv[])
 {
 	ssize_t bytes_read;
 	size_t num_bytes;
@@ -16,6 +16,16 @@ int main(void)
 
 	num_bytes = 0;
 	str = NULL;
+
+	if (argc > 1)
+	{
+		write(STDERR_FILENO, argv[0], strlen(argv[0]));
+		write(STDERR_FILENO, ": 0: ", 5);
+		write(STDERR_FILENO, "Can't open ", 11);
+		write(STDERR_FILENO, argv[1], strlen(argv[1]));
+		write(STDERR_FILENO, "\n", 1);
+		exit(-1);
+	}
 
 	while (1)
 	{
@@ -41,5 +51,6 @@ int main(void)
 			free(str);
 		}
 		str = NULL;
+		free(str);
 	}
 }
