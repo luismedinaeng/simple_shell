@@ -24,7 +24,7 @@ int main(int argc, char *argv[])
 		write(STDERR_FILENO, "Can't open ", 11);
 		write(STDERR_FILENO, argv[1], strlen(argv[1]));
 		write(STDERR_FILENO, "\n", 1);
-		exit(-1);
+		exit(127);
 	}
 
 	while (1)

@@ -1,6 +1,6 @@
 #include "holberton.h"
 void *handle_error(char *comm, int _stat);
-void print_number(int n);
+int print_number(int n);
 
 char **str_process(char *command, ssize_t b_r)
 {
@@ -32,7 +32,17 @@ char **str_process(char *command, ssize_t b_r)
 	if (n == 2)
 	{
 		ex_it = _atoi(input[1]);
-		if(strcmp(input[0], "exit") == 0)
+		if (ex_it < 0)
+		{
+			write(STDERR_FILENO, "./shell: 1: exit: Illegal number: ", 34);
+			write(STDERR_FILENO, input[1], strlen(input[1]));
+			write(STDERR_FILENO, "\n", 1);
+		}
+		else if (ex_it > 255)
+		{
+			exit((ex_it % 256));
+		}
+		if (strcmp(input[0], "exit") == 0)
 		{
 			exit(ex_it);
 			free(input);
@@ -54,7 +64,6 @@ char **str_process(char *command, ssize_t b_r)
 		if (exe == -1)
 		{
 			handle_error(input[0], m);
-			m++;
 		}
 		if (b_r = EOF)
 			exit(0);
@@ -63,38 +72,26 @@ char **str_process(char *command, ssize_t b_r)
 	{
 		wait(&status);
 	}
-
-
-	/* while(input != NULL) */
-	/* { */
-	/* 	free(input[i]); */
-	/* 	i++; */
-	/* } */
 	free(input);
 }
 
 void *handle_error(char *comm, int _stat)
 {
 
-	write(STDERR_FILENO, "./shell", 5);
+	write(STDERR_FILENO, "./shell: ", 9);
 	print_number(_stat);
 	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, comm, strlen(comm));
-	write(STDERR_FILENO, " :not found\n", 12);
+	write(STDERR_FILENO, ": not found\n", 12);
 }
 
-void print_number(int n)
+int print_number(int n)
 {
-	unsigned int i = n;
-
-	if (n < 0)
+	char conv;
+	if (n / 10)
 	{
-		putchar('-');
-		i = -n;
+		print_number(n / 10);
 	}
-	if (i / 10)
-	{
-		print_number(i / 10);
-	}
-	putchar((i % 10) + '0');
+	conv = ((n % 10) + '0');
+	write(STDERR_FILENO, &conv, 1);
 }
