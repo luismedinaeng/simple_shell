@@ -10,14 +10,12 @@ int main(void)
 	ssize_t bytes_read;
 	size_t num_bytes;
 	pid_t _pid;
-	char *str, *strcp, *token, *tokens, *p_sign = "$ ";
-	int status, exe, n = 0;
-	char *input[10] = {};
+	char *str, *p_sign = "$ ";
 	char **intro;
+	int i = 0;
 
 	num_bytes = 0;
 	str = NULL;
-	token = NULL;
 
 	while (1)
 	{
@@ -40,6 +38,8 @@ int main(void)
 		else
 		{
 			intro = str_process(str, bytes_read);
+			free(str);
 		}
+		str = NULL;
 	}
 }
