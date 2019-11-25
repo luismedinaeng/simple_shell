@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
 		{
 			if (isatty(STDIN_FILENO))
 				putchar('\n');
+			free(str);
 			exit(0);
 		}
 		if (bytes_read == -1)
