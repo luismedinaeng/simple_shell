@@ -87,7 +87,7 @@ int _strcmp(char *s1, char *s2)
  * Return: Pointer to the first occurence of the substring
  * NULL if any character is found.
  */
-char *_strstr(const char *haystack, const char *needle)
+char *_strstr(char *haystack, char *needle)
 {
 	int i = 0;
 	int j;

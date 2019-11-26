@@ -58,32 +58,17 @@ void _free_env(void)
  * Return: The value of the variable to get created with malloc
  * NULL if the variable does not exist
  */
-char *_getenv(const char *name)
+char *_getenv(char *name)
 {
 	unsigned int i = 0;
-	char *token, *strcp;
+	char *strcp;
 
 	while (env_var && env_var[i])
 	{
-		/* Add NULL guard */
-		strcp = strdup(environ[i]);
-		token = strtok(strcp, "=");
-		if (strcmp(token, name) == 0)
-		{
-			token = strtok(NULL, "=");
-			/* Add NULL guard */
-			token = strdup(token);
-			free(strcp);
-			return (token);
-		}
+		strcp = _strstr(env_var[i], name);
+		if (strcp != NULL && strcp == env_var[i])
+				return (_strchr(env_var[i], '=') + 1);
 		i++;
-		free(strcp);
 	}
-
 	return (NULL);
 }
-
-
-/**
- * gen_env - Creates a copy of the environ variable to a new global variable
- *
