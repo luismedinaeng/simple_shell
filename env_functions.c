@@ -19,7 +19,7 @@ char **_genenv(void)
 
 	while (i < count)
 	{
-		env_var[i] = strdup(environ[i]);
+		env_var[i] = _strdup(environ[i]);
 		if (env_var[i] == NULL)
 		{
 			_free_env();
@@ -45,10 +45,45 @@ void _free_env(void)
 	{
 		free(env_var[i]);
 		env_var[i] = NULL;
-		i++
+		i++;
 	}
 	free(env_var);
 	env_var = NULL;
+}
+
+/**
+ * _printenv - Prints the environmental variables
+ *
+ * Return: Nothing
+ */
+void _printenv(void)
+{
+	char buffer[1024];
+	int i, j, count;
+
+	i = 0, count = 0;
+	while (env_var && env_var[i])
+	{
+		j = 0;
+		while (env_var[i][j])
+		{
+			if (count > 1024)
+			{
+				write(STDOUT_FILENO, buffer, 1024);
+				count = 0;
+			}
+			buffer[count] = env_var[i][j];
+			count++, j++;
+		}
+		if (count > 1024)
+		{
+			write(STDOUT_FILENO, buffer, 1024);
+			count = 0;
+		}
+		buffer[count] = '\n';
+		count++, i++;
+	}
+	write(STDOUT_FILENO, buffer, count);
 }
 
 /**
