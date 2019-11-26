@@ -2,7 +2,7 @@
 void *handle_error(char *comm, int _stat);
 int print_number(int n);
 
-char **str_process(char *command, ssize_t b_r, int c)
+char **str_process(char **command, ssize_t b_r, int c)
 {
 	pid_t _pid;
 	char *tkn, *tkns;
@@ -12,13 +12,13 @@ char **str_process(char *command, ssize_t b_r, int c)
 	if (input == NULL)
 		return (NULL);
 
-	tkn = strtok(command, " \n");
+	tkn = strtok(*command, " \n");
 	n = 0;
 	while (tkn != NULL)
 	{
 		if(n >= 1)
 		{
-			input_bu = realloc(input, (n + 1) * sizeof(char*));
+			input_bu = realloc(input, (n + 2) * sizeof(char*));
 			if (input_bu == NULL)
 				return NULL;
 			input = input_bu;
@@ -45,16 +45,16 @@ char **str_process(char *command, ssize_t b_r, int c)
 		}
 		else if (strcmp(input[0], "exit") == 0)
 		{
+			free(input), free(*command);
 			exit(ex_it);
-			/* free(input); */
 		}
 	}
 	else
 	{
 		if(strcmp(input[0], "exit") == 0)
 		{
+			free(input), free(*command);
 			exit(ex_it);
-			/* free(input); */
 		}
 	}
 
@@ -72,7 +72,7 @@ char **str_process(char *command, ssize_t b_r, int c)
 	else if (_pid > 0)
 	{
 		wait(&status);
-		/* free(input); */
+		free(input);
 	}
 }
 

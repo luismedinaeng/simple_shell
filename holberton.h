@@ -10,7 +10,7 @@
 #include <signal.h>
 
 
-char **str_process(char *command, ssize_t r_b, int c);
+char **str_process(char **command, ssize_t r_b, int c);
 int _atoi(char *s);
 void change_dir(char *comm);
 #endif

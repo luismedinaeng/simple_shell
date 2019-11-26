@@ -48,7 +48,7 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			intro = str_process(str, bytes_read, count);
+			intro = str_process(&str, bytes_read, count);
 			free(str);
 		}
 		str = NULL;
