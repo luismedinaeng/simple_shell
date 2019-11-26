@@ -16,9 +16,9 @@ char **str_process(char *command, ssize_t b_r, int c)
 	n = 0;
 	while (tkn != NULL)
 	{
-		if(n > 1)
+		if(n >= 1)
 		{
-			input_bu = realloc(input[n], (n + 1) * sizeof(char*));
+			input_bu = realloc(input, (n + 1) * sizeof(char*));
 			if (input_bu == NULL)
 				return NULL;
 			input = input_bu;
@@ -29,7 +29,7 @@ char **str_process(char *command, ssize_t b_r, int c)
 	}
 	input[n] = NULL;
 
-	if (n == 2)
+	if (n >= 2)
 	{
 		ex_it = _atoi(input[1]);
 		if (ex_it < 0)
@@ -37,15 +37,16 @@ char **str_process(char *command, ssize_t b_r, int c)
 			write(STDERR_FILENO, "./shell: 1: exit: Illegal number: ", 34);
 			write(STDERR_FILENO, input[1], strlen(input[1]));
 			write(STDERR_FILENO, "\n", 1);
+			return;
 		}
-		else if (ex_it > 255)
+		if (ex_it > 255)
 		{
 			exit((ex_it % 256));
 		}
-		if (strcmp(input[0], "exit") == 0)
+		else if (strcmp(input[0], "exit") == 0)
 		{
 			exit(ex_it);
-			free(input);
+			/* free(input); */
 		}
 	}
 	else
@@ -53,7 +54,7 @@ char **str_process(char *command, ssize_t b_r, int c)
 		if(strcmp(input[0], "exit") == 0)
 		{
 			exit(ex_it);
-			free(input);
+			/* free(input); */
 		}
 	}
 
@@ -66,13 +67,13 @@ char **str_process(char *command, ssize_t b_r, int c)
 			handle_error(input[0], c);
 		}
 		if (b_r = EOF)
-			exit(0);
+			_exit(0);
 	}
 	else if (_pid > 0)
 	{
 		wait(&status);
+		/* free(input); */
 	}
-	free(input);
 }
 
 void *handle_error(char *comm, int _stat)
