@@ -2,12 +2,12 @@
 void *handle_error(char *comm, int _stat);
 int print_number(int n);
 
-char **str_process(char *command, ssize_t b_r)
+char **str_process(char *command, ssize_t b_r, int c)
 {
 	pid_t _pid;
 	char *tkn, *tkns;
 	char **input_bu;
-	int status, exe, n = 0, ex_it, i = 0, m = 1;
+	int status, exe, n = 0, ex_it, i = 0;
 	char **input = malloc(2 * sizeof(char*));
 	if (input == NULL)
 		return (NULL);
@@ -63,7 +63,7 @@ char **str_process(char *command, ssize_t b_r)
 		exe = execve(input[0], input, NULL);
 		if (exe == -1)
 		{
-			handle_error(input[0], m);
+			handle_error(input[0], c);
 		}
 		if (b_r = EOF)
 			exit(0);

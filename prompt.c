@@ -12,7 +12,7 @@ int main(int argc, char *argv[])
 	pid_t _pid;
 	char *str, *p_sign = "$ ";
 	char **intro;
-	int i = 0;
+	int i = 0, count = 1;
 
 	num_bytes = 0;
 	str = NULL;
@@ -48,10 +48,11 @@ int main(int argc, char *argv[])
 		}
 		else
 		{
-			intro = str_process(str, bytes_read);
+			intro = str_process(str, bytes_read, count);
 			free(str);
 		}
 		str = NULL;
+		count++;
 		free(str);
 	}
 }
