@@ -37,5 +37,8 @@ size_t print_path(const env_var_t *h);
 /* Auxiliar functions of strings */
 char *_strdup(char *str);
 int _strlen(char *s);
+char *_strcpy(char *dest, char *src);
+int _strcmp(char *s1, char *s2);
+char *_strstr(const char *haystack, const char *needle);
 
 #endif
