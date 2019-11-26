@@ -12,11 +12,11 @@
  * @value: Value of the actual node
  * @next: Next item on the sinlgy linked list
  */
-typedef struct env_var
+typedef struct env_path
 {
 	char *value;
 	struct env_var *next;
-} env_var_t;
+} env_path_t;
 
 /* Variable that has the environmental variables information */
 char **env_var;
