@@ -3,13 +3,13 @@
  *
  * Returns: The first element of the list
  */
-env_var_t *build_path(void)
+env_path_t *build_path(void)
 {
-	env_var_t *head = NULL;
+	env_path_t *head = NULL;
 	char *variable;
 	char *token;
 
-	variable = _getenv("PATH");
+	variable = _strdup(_getenv("PATH"));
 	if (variable == NULL)
 		return (NULL);
 
