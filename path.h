@@ -24,21 +24,25 @@ char **env_var;
 /* Functions to manage environmental variables */
 char **_genenv(void);
 void _free_env(void);
-char *_getenv(const char *name);
+void _printenv(void);
+char *_getenv(char *name);
 int _setenv(const char *name, const char *value, int overwrite);
 int _unsetenv(const char *name);
 
 /* Functions to work with the env var PATH */
-env_var_t *build_path(void);
-env_var_t *add_path_end(env_var_t **head, const char *n);
-void free_path(env_var_t **head);
-size_t print_path(const env_var_t *h);
+env_path_t *build_path(void);
+env_path_t *add_path_end(env_path_t **head, const char *n);
+void free_path(env_path_t **head);
+size_t print_path(const env_path_t *h);
 
 /* Auxiliar functions of strings */
 char *_strdup(char *str);
 int _strlen(char *s);
 char *_strcpy(char *dest, char *src);
 int _strcmp(char *s1, char *s2);
-char *_strstr(const char *haystack, const char *needle);
+char *_strstr(char *haystack, char *needle);
+char *_strchr(char *s, char c);
+char *_memcpy(char *dest, char *src, unsigned int n);
+
 
 #endif
