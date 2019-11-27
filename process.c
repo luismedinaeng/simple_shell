@@ -7,11 +7,14 @@ char **str_process(char **command, ssize_t b_r, int c)
 	pid_t _pid;
 	char *tkn, *tkns;
 	char **input_bu;
-	int status, exe, n = 0, ex_it, i = 0;
+	int status, exe, n = 0, ex_it = 0, i = 0;
 	char **input = malloc(2 * sizeof(char*));
 	if (input == NULL)
 		return (NULL);
 
+	(void)i;
+	(void)tkns;
+	(void)b_r;
 	tkn = strtok(*command, " \n");
 	n = 0;
 	while (tkn != NULL)
@@ -37,7 +40,7 @@ char **str_process(char **command, ssize_t b_r, int c)
 			write(STDERR_FILENO, "./shell: 1: exit: Illegal number: ", 34);
 			write(STDERR_FILENO, input[1], strlen(input[1]));
 			write(STDERR_FILENO, "\n", 1);
-			return;
+			return NULL;
 		}
 		if (ex_it > 255)
 		{
@@ -66,14 +69,16 @@ char **str_process(char **command, ssize_t b_r, int c)
 		{
 			handle_error(input[0], c);
 		}
-		if (b_r = EOF)
-			_exit(0);
+		/* if (b_r == EOF) */
+		free(input), free(*command);
+		_exit(0);
 	}
 	else if (_pid > 0)
 	{
 		wait(&status);
 		free(input);
 	}
+	return (NULL);
 }
 
 void *handle_error(char *comm, int _stat)
@@ -84,6 +89,7 @@ void *handle_error(char *comm, int _stat)
 	write(STDERR_FILENO, ": ", 2);
 	write(STDERR_FILENO, comm, strlen(comm));
 	write(STDERR_FILENO, ": not found\n", 12);
+	return (NULL);
 }
 
 int print_number(int n)
@@ -95,4 +101,5 @@ int print_number(int n)
 	}
 	conv = ((n % 10) + '0');
 	write(STDERR_FILENO, &conv, 1);
+	return (0);
 }
