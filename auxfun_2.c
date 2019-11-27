@@ -1,4 +1,4 @@
-#include "path.h"
+#include "holberton.h"
 
 /**
  * _strchr - Locate the first ocurrence of a

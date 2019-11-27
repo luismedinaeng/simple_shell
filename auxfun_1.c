@@ -1,4 +1,4 @@
-#include "path.h"
+#include "holberton.h"
 
 /**
  * _strdup - Duplicates the array inserted in other location

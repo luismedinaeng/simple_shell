@@ -1,4 +1,4 @@
-#include "path.h"
+#include "holberton.h"
 
 /**
  * build_path - Builds a single linked list with the paths of PATH

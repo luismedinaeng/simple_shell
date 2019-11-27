@@ -1,4 +1,4 @@
-#include "path.h"
+#include "holberton.h"
 
 /**
  * _genenv - Creates a copy of the environ variable to a new global variable
