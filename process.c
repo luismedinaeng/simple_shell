@@ -16,6 +16,11 @@ char **str_process(char **command, ssize_t b_r, int c)
 	(void)tkns;
 	(void)b_r;
 	tkn = strtok(*command, " \n");
+	if (tkn == NULL)
+	{
+		free (input);
+		return (NULL);
+	}
 	n = 0;
 	while (tkn != NULL)
 	{
