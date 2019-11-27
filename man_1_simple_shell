@@ -2,8 +2,16 @@
 .SH NAME
 .B Simple Shell
 - simple unix command interpreter.
-.SH SYNOPSYS
-shell [command]
+.SH SYNOPSIS
+.nf
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/wait.h>
+#include <signal.h>
+$ shell [command]
 .SH DESCRIPTION
 The simple shell provides a command line user interface, it can interact with
 input provided by the user, displaying functions and executing programs.
@@ -12,3 +20,47 @@ The simple shell can be opened in interactive mode as well as in non-interactive
 mode.
 .IP "$ ./shell"
 .IP "$ echo /bin/ls | ./shell"
+.SH Auxiliary Functions
+The functions listed below were written by the authors in order to comply with
+the project objectives:
+
+.IP _strdup
+Duplicates the array inserted in other location
+.IP _strlen
+Returns the lenght of a string
+.IP _strcpy
+Copies a string
+.IP _strcmp
+Compares two strings
+.IP _strstr
+Locates the first string into the second string
+.IP _strchr
+Locate the first ocurrence of a character
+.IP str_concat
+Concatenates two strings
+
+.SH Compilation
+The simple shell is compiled in GCC with the following script
+.PP
+gcc -Wall -Werror -Wextra -pedantic *.c -o shell
+
+.SH COMMANDS
+.B exit
+- exit the shell with an exit status integer
+.PP
+.B Ctrl-C
+- Shell will not quit when user inputs ^C
+.PP
+.B Ctrl-D or EOF
+- shell handles end of file conditions
+
+.SH Exit Function
+In order to exit The simple shell, the user can type the command *exit*, this
+will terminate the program with an integer status. The shell handles End-of-file
+conditions, it will exit when the user types Ctrl-D.
+Note: The KeyStroke Ctrl-C will be ignored
+
+.SH See Also
+sh(1)
+.SH AUTHORS
+Luis Medina, Fabio Gomez
