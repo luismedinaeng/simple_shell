@@ -1,0 +1,14 @@
+.TH S_Shell 1 "Nov 2019" "1.0" "Simple Shell Manual"
+.SH NAME
+.B Simple Shell
+- simple unix command interpreter.
+.SH SYNOPSYS
+shell [command]
+.SH DESCRIPTION
+The simple shell provides a command line user interface, it can interact with
+input provided by the user, displaying functions and executing programs.
+.SS Invocation
+The simple shell can be opened in interactive mode as well as in non-interactive
+mode.
+.IP "$ ./shell"
+.IP "$ echo /bin/ls | ./shell"
