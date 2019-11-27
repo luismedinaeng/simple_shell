@@ -2,6 +2,7 @@
 
 void sighandler(int sig)
 {
+	(void) sig;
 	write(STDOUT_FILENO, "\n$ ", 3);
 }
 
@@ -14,6 +15,9 @@ int main(int argc, char *argv[])
 	char **intro;
 	int i = 0, count = 1;
 
+	(void) i;
+	(void)intro;
+	(void)_pid;
 	num_bytes = 0;
 	str = NULL;
 
