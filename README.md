@@ -85,7 +85,7 @@ conditions, it will exit when the user types Ctrl-D.
 **Note:** The KeyStroke Ctrl-C will be ignored
 
 ## Flowchart
-![enter image description here](https://ibb.co/tK5x6X3)
+![enter image description here](https://i.ibb.co/nmSnyCR/Untitled-Diagram.jpg)
 
 ## Authors
 Luis Medina, Fabio Gomez
