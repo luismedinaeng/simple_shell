@@ -1,6 +1,7 @@
 #include "holberton.h"
 void handle_error(char *comm, int _stat);
 int print_number(int n);
+void print_environ(void);
 
 /**
  * str_process - Process and executes a command
@@ -75,6 +76,12 @@ char **str_process(char **command, ssize_t b_r, int c)
 			free(input), free(*command);
 			exit(ex_it);
 		}
+		else if (_strcmp(input[0], "env") == 0)
+		{
+			print_environ();
+			free(input);
+			return (NULL);
+		}
 	}
 
 	_pid = fork();
@@ -130,4 +137,22 @@ int print_number(int n)
 	conv = ((n % 10) + '0');
 	write(STDERR_FILENO, &conv, 1);
 	return (n);
+}
+
+
+/**
+ * print_environ - Prints the environmental variables
+ *
+ * Return: Nothing
+ */
+void print_environ(void)
+{
+	int i = 0;
+
+	while (environ && environ[i])
+	{
+		printf("%s\n", environ[i]);
+		i++;
+	}
+
 }
